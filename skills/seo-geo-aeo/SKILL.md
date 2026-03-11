@@ -50,7 +50,18 @@ Based on what you discovered in Phase 2a, fetch the key pages in parallel. Prior
 
 For each fetch, prompt: "Return the page content including headings, body text, schema markup, and any structured data."
 
-Fetch up to 6 additional pages. If the site has fewer pages than this, fetch all of them. Skip pages that clearly won't contribute useful signals (e.g., a privacy policy page).
+Fetch up to 15 additional pages beyond the homepage. Prioritize by signal value, working through this order:
+
+1. About / Team / Our Story
+2. Services / What We Do / Solutions
+3. Case Studies / Portfolio / Work
+4. Blog / Resources / Insights (index page + 1-2 recent posts)
+5. Contact / Location
+6. FAQ / Help
+7. Individual service or product pages
+8. Any remaining pages discovered in the sitemap that appear content-rich
+
+If the site has fewer than 15 pages, fetch all of them. Skip pages that won't contribute meaningful signals: Privacy Policy, Terms of Service, login/account pages, thank-you/confirmation pages, and paginated archive pages beyond page 1.
 
 ### Phase 2c: Handling inaccessible sites
 
