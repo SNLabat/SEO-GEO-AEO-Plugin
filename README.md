@@ -1,7 +1,5 @@
 # SEO / GEO / AEO Audit Plugin
 
-**Provided by [Burning Stick Creative](https://burningstickcreative.com)**
-
 Automatically audits any website across three dimensions of modern search visibility:
 
 - **SEO** — Traditional search engine optimization (Google, Bing): title tags, meta descriptions, heading structure, schema markup, internal links, content quality
