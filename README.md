@@ -1,4 +1,4 @@
-# SEO / GEO / AEO Audit Plugin
+# SEO / GEO / AEO Audit Plugin for Claude
 
 Automatically audits any website across three dimensions of modern search visibility:
 
