@@ -1,0 +1,29 @@
+{
+  "name": "seo-geo-aeo",
+  "owner": {
+    "name": "Alex Labat",
+    "email": "SNLabat@gmail.com"
+  },
+  "metadata": {
+    "description": "SEO, GEO, and AEO audit tools provided by Burning Stick Creative"
+  },
+  "plugins": [
+    {
+      "name": "seo-geo-aeo",
+      "source": {
+        "source": "github",
+        "repo": "SNLabat/SEO-GEO-AEO-Plugin"
+      },
+      "description": "Full-featured SEO, GEO, and AEO website audit. Analyzes any URL for Search Engine Optimization, Generative Engine Optimization (AI search engines like Perplexity and ChatGPT Search), and Answer Engine Optimization (featured snippets and voice search).",
+      "author": {
+        "name": "Alex Labat",
+        "email": "SNLabat@gmail.com"
+      },
+      "homepage": "https://alexlabat.com",
+      "repository": "https://github.com/SNLabat/SEO-GEO-AEO-Plugin",
+      "license": "MIT",
+      "keywords": ["seo", "geo", "aeo", "audit", "search", "ai-search", "marketing"],
+      "category": "marketing"
+    }
+  ]
+}
