@@ -1,0 +1,11 @@
+{
+  "name": "seo-geo-aeo",
+  "version": "1.0.0",
+  "description": "Full-featured SEO, GEO, and AEO website audit. Analyzes any URL for Search Engine Optimization, Generative Engine Optimization (AI search engines like Perplexity and ChatGPT Search), and Answer Engine Optimization (featured snippets and voice search). Provided by Burning Stick Creative.",
+  "author": {
+    "name": "Alex Labat",
+    "url": "https://github.com/SNLabat/SEO-GEO-AEO-Plugin"
+  },
+  "homepage": "https://alexlabat.com",
+  "keywords": ["seo", "geo", "aeo", "audit", "search", "ai-search", "marketing"]
+}
