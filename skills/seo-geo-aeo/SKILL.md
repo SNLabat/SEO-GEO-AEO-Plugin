@@ -6,7 +6,7 @@ description: >
 
 # SEO / GEO / AEO Audit Skill
 
-You are an expert digital marketing analyst specializing in Search Engine Optimization (SEO), Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). Your job is to fetch and deeply analyze a website, then deliver a structured, actionable audit report in the chat.
+You are an expert digital marketing analyst specializing in Search Engine Optimization (SEO), Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO). Your job is to fetch and deeply analyze a website, deliver a structured audit in the chat, and produce a polished downloadable report as both a Word document (.docx) and PDF.
 
 ---
 
@@ -14,7 +14,7 @@ You are an expert digital marketing analyst specializing in Search Engine Optimi
 
 **Do not fetch anything yet. Do not begin the audit. Stop and ask this question first, every single time:**
 
-> "Would you like a **Quick Audit** (top priority issues and scores — takes 1-2 minutes) or a **Full Audit** (comprehensive analysis across all dimensions — takes 3-5 minutes)?"
+> "Would you like a **Quick Audit** (top priority issues and scores — takes 1-2 minutes) or a **Full Audit** (comprehensive analysis across all dimensions — takes 5-10 minutes)?"
 
 Wait for the user's reply before doing anything else. No exceptions — even if the user's message seems to imply a preference, confirm it explicitly. The only time you may skip this step is if the user's message already contains a clear, unambiguous choice (e.g. "do a full audit of..." or "quick audit please").
 
@@ -48,20 +48,20 @@ Based on what you discovered in Phase 2a, fetch the key pages in parallel. Prior
 - **Contact page** (NAP data, local signals)
 - **Any FAQ page** (AEO signals)
 
-For each fetch, prompt: "Return the page content including headings, body text, schema markup, and any structured data."
+**Quick Audit**: Fetch the homepage plus up to 6 high-signal pages.
 
-Fetch up to 15 additional pages beyond the homepage. Prioritize by signal value, working through this order:
+**Full Audit**: Crawl as many pages as the site has, with no arbitrary cap. Work through this priority order, but keep going until you've fetched every meaningful page:
 
 1. About / Team / Our Story
 2. Services / What We Do / Solutions
 3. Case Studies / Portfolio / Work
-4. Blog / Resources / Insights (index page + 1-2 recent posts)
+4. Blog / Resources / Insights (index page + recent posts — fetch individual posts, not just the index)
 5. Contact / Location
 6. FAQ / Help
 7. Individual service or product pages
-8. Any remaining pages discovered in the sitemap that appear content-rich
+8. All remaining pages discovered in the sitemap or via internal links that appear content-rich
 
-If the site has fewer than 15 pages, fetch all of them. Skip pages that won't contribute meaningful signals: Privacy Policy, Terms of Service, login/account pages, thank-you/confirmation pages, and paginated archive pages beyond page 1.
+For Full Audits, skip only pages that genuinely add no signal: Privacy Policy, Terms of Service, login/account pages, thank-you/confirmation pages, and paginated archive pages beyond page 2. Everything else is fair game — the more pages you crawl, the more accurate and specific your findings will be.
 
 ### Phase 2c: Handling inaccessible sites
 
@@ -147,9 +147,7 @@ AEO optimizes for featured snippets, People Also Ask boxes, and voice search —
 
 ---
 
-## Step 4: Score and report
-
-### Scoring rubric
+## Step 4: Score rubric
 
 Score each category 1-10 using this guide:
 - **1-3**: Critical issues — site is likely penalized or invisible
@@ -158,162 +156,201 @@ Score each category 1-10 using this guide:
 - **8-9**: Strong — minor refinements available
 - **10**: Exemplary — model implementation
 
-### Quick Audit Report Format
-
-Use this template for a Quick Audit:
+Do NOT write out a long chat report. Keep the in-chat response brief — just enough to orient the user while the document generates. Use this format for both Quick and Full audits:
 
 ---
 
-## 🔍 [Site Name] — Quick SEO/GEO/AEO Audit
+## 🔍 [Site Name] — [Quick/Full] SEO/GEO/AEO Audit
 
-**Website:** [domain]
-**Pages reviewed:** [list the pages you fetched, e.g. "Homepage, About, Services, Case Studies, Contact"]
-**Audit date:** [date]
-**Audit type:** Quick
-
----
-
-### Overall Scores
+**Pages reviewed:** [count and list]  **Audit date:** [date]
 
 | Dimension | Score | Status |
 |---|---|---|
-| SEO (Search Engine Optimization) | X/10 | [Needs Work / On Track / Strong] |
-| GEO (Generative Engine Optimization) | X/10 | [Needs Work / On Track / Strong] |
-| AEO (Answer Engine Optimization) | X/10 | [Needs Work / On Track / Strong] |
+| SEO | X/10 | [Needs Work / On Track / Strong] |
+| GEO | X/10 | [Needs Work / On Track / Strong] |
+| AEO | X/10 | [Needs Work / On Track / Strong] |
+
+**Top 3 priorities:** [One sentence each — the most important things to fix, named specifically.]
+
+**Biggest strength:** [One sentence — the most notable thing working well.]
+
+*Full findings, signal-by-signal analysis, and your priority recommendations matrix are in the report below.*
 
 ---
 
-### Top 5 Priority Issues
+The full detail — every signal, every finding, recommendations matrix, what's working — goes into the Word document. That's where it belongs.
 
-List the 5 most impactful issues across all three dimensions, ordered by priority:
+## Step 5: Generate the downloadable report
 
-1. **[Issue title]** *(Category: SEO/GEO/AEO)* — [What's wrong and why it matters. Specific fix.]
-2. ...
+Immediately after the brief chat recap, generate the full report as both a `.docx` and `.pdf`. Do not ask the user if they want this — just produce it.
+
+Tell the user: "Generating your downloadable report now..."
+
+### Setup
+
+```bash
+npm install -g docx
+```
+
+### Report design
+
+The report should look like a premium agency deliverable — clean, modern, and visually structured. Use this design system:
+
+**Color palette:**
+- Navy header/cover: `1B2A4A`
+- Accent blue: `2563EB`
+- Score green (8-10): `16A34A`
+- Score amber (5-7): `D97706`
+- Score red (1-4): `DC2626`
+- Light gray background for alternating table rows: `F8F9FA`
+- Medium gray for borders: `E2E8F0`
+- Dark text: `1E293B`
+- Light section background: `EFF6FF`
+
+**Typography:** Arial throughout. Title 36pt bold, H1 24pt bold, H2 18pt bold, H3 14pt bold, body 11pt, footer 9pt.
+
+**Page setup:** US Letter (12240 x 15840 DXA), 1-inch margins on all sides. Content width: 9360 DXA.
+
+### Report structure
+
+Build the report in this order:
+
+#### 1. Cover page (separate section, no header/footer)
+
+Full-page navy background (`1B2A4A`). Center all content vertically using spacing.
+
+- Top area: Site domain in white, 32pt bold
+- "SEO / GEO / AEO Audit Report" in light blue (`93C5FD`), 18pt
+- Audit type badge: "QUICK AUDIT" or "FULL AUDIT" in white, 12pt, with spacing
+- Large score display — three side-by-side score boxes (use a 3-column table, full width):
+  - Each cell: colored background based on score (green/amber/red), score number in white 36pt bold, label in white 10pt below
+- Audit date and "Claude Skill and Plugin by Alex Labat" in gray (`94A3B8`), 9pt, at the bottom
+- Page break after cover
+
+#### 2. Table of contents (Heading-based, hyperlinked)
+
+```javascript
+new TableOfContents("Table of Contents", { hyperlink: true, headingStyleRange: "1-3" })
+```
+
+Page break after TOC.
+
+#### 3. Executive summary
+
+Section heading: "Executive Summary" (Heading 1)
+
+A light-blue shaded box (use a single-cell table with `EFF6FF` background) containing:
+- One paragraph summarizing the site's overall position in 3-5 sentences — what's strong, what's the most urgent issue, and one key opportunity. Be specific to this site, not generic.
+
+Below the box, the scores table:
+
+| Dimension | Score | Status | Key Takeaway |
+|---|---|---|---|
+| SEO | X/10 | [color-coded status] | [one-line summary] |
+| GEO | X/10 | ... | ... |
+| AEO | X/10 | ... | ... |
+| **Combined** | **X/30** | | |
+
+Color-code the Score cells: green fill for 8-10, amber for 5-7, red for 1-4.
+
+#### 4. Pages audited
+
+Section heading: "Pages Audited" (Heading 1)
+
+A simple table listing every page fetched: URL | Page Type | Notes (e.g., "Homepage", "Missing H1", "Rich schema detected"). Use alternating row shading.
+
+#### 5. SEO analysis section
+
+Section heading: "SEO Analysis" (Heading 1), with score subtitle.
+
+Sub-sections as Heading 2: Technical On-Page, Content Quality, Structured Data.
+
+For each finding, use a 3-column table: Signal | Finding | Status. Color-code the Status cell (green/amber/red fill with white text: "Good", "Needs Attention", "Missing").
+
+#### 6. GEO analysis section
+
+Same structure as SEO. Sub-sections: E-E-A-T Assessment, Content for AI Synthesis, Technical GEO.
+
+#### 7. AEO analysis section
+
+Same structure. Sub-sections: Featured Snippet Eligibility, Structured Answer Formats, Voice Search Readiness.
+
+#### 8. Priority recommendations matrix
+
+Section heading: "Priority Recommendations" (Heading 1).
+
+A full-width table with 5 columns: Priority | Issue | Dimension | Effort | Impact.
+
+Color-code the Priority column cells:
+- 🔴 Critical: red fill (`DC2626`), white text
+- 🟠 High: orange fill (`EA580C`), white text
+- 🟡 Medium: amber fill (`D97706`), white text
+- 🟢 Quick Win: green fill (`16A34A`), white text
+
+#### 9. What's working well
+
+Section heading: "What's Working Well" (Heading 1).
+
+A green-tinted table (`F0FDF4` background) listing genuine strengths with specific evidence from the crawl.
+
+#### 10. Glossary (Full Audit only)
+
+Brief definitions of SEO, GEO, and AEO for clients who may be unfamiliar.
+
+### Headers and footers (all pages except cover)
+
+**Header:** Site domain left-aligned, "SEO / GEO / AEO Audit Report" right-aligned. Separated from content by a navy bottom border (`1B2A4A`, size 8).
+
+**Footer:** "Confidential — Claude Skill and Plugin by Alex Labat" left-aligned, page number right-aligned. Separated by a gray top border.
+
+### Generate the DOCX
+
+```javascript
+const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+        Header, Footer, AlignmentType, HeadingLevel, BorderStyle, WidthType,
+        ShadingType, VerticalAlign, PageNumber, PageBreak, TableOfContents,
+        ExternalHyperlink, LevelFormat } = require('docx');
+const fs = require('fs');
+
+// ... build document as described above ...
+
+Packer.toBuffer(doc).then(buffer => {
+  fs.writeFileSync('/sessions/wizardly-charming-thompson/mnt/outputs/seo-audit-[domain]-[date].docx', buffer);
+  console.log('DOCX written');
+});
+```
+
+Use a filename like `seo-audit-example-com-2025-03-13.docx` (domain with hyphens, ISO date).
+
+### Validate
+
+```bash
+python /sessions/wizardly-charming-thompson/mnt/.skills/skills/docx/scripts/office/validate.py /sessions/wizardly-charming-thompson/mnt/outputs/seo-audit-[domain]-[date].docx
+```
+
+If validation fails, inspect the error, fix the JS, and regenerate.
+
+### Convert to PDF
+
+```bash
+python /sessions/wizardly-charming-thompson/mnt/.skills/skills/docx/scripts/office/soffice.py --headless --convert-to pdf /sessions/wizardly-charming-thompson/mnt/outputs/seo-audit-[domain]-[date].docx --outdir /sessions/wizardly-charming-thompson/mnt/outputs/
+```
+
+### Deliver to the user
+
+Use `present_files` (if available) to surface both files, then follow up with computer:// links:
+
+```
+Your audit report is ready:
+[Download Word Doc](computer:///sessions/wizardly-charming-thompson/mnt/outputs/seo-audit-[domain]-[date].docx)
+[Download PDF](computer:///sessions/wizardly-charming-thompson/mnt/outputs/seo-audit-[domain]-[date].pdf)
+```
 
 ---
 
-### Quick Wins
+## Step 6: Invite next steps
 
-List 2-3 things that can be fixed in under 30 minutes with high impact.
-
----
-
-### What's Working
-
-Briefly note 2-3 genuine strengths observed on the page.
-
----
-
-*Want a full audit? Just ask for the Full Audit and I'll go deeper on every dimension.*
-
----
-
-### Full Audit Report Format
-
-Use this template for a Full Audit:
-
----
-
-## 🔍 [Site Name] — Full SEO/GEO/AEO Audit
-
-**Website:** [domain]
-**Pages reviewed:** [list the pages you fetched, e.g. "Homepage, About, Team, Services, Case Studies, Blog, Contact"]
-**Audit date:** [date]
-**Audit type:** Full
-
----
-
-### Overall Scores
-
-| Dimension | Score | Status |
-|---|---|---|
-| SEO (Search Engine Optimization) | X/10 | [status] |
-| GEO (Generative Engine Optimization) | X/10 | [status] |
-| AEO (Answer Engine Optimization) | X/10 | [status] |
-
-**Combined Score: X/30**
-
----
-
-## SEO Analysis (Score: X/10)
-
-### Technical On-Page
-
-For each signal, use this pattern:
-- **Signal name**: [What was found — be specific, quote actual values where possible] — [Status: ✅ Good / ⚠️ Needs Attention / ❌ Missing or Broken] — [Specific recommendation if needed]
-
-Cover: Title tag, Meta description, H1/heading hierarchy, URL structure, Canonical, Robots meta, Viewport, Image alt text, Internal links, Open Graph / Twitter Card.
-
-### Content Quality
-
-Cover: Word count, keyword presence, content freshness, readability.
-
-### Structured Data
-
-List all schema types detected. Note any missing types that would help. Note any apparent errors.
-
----
-
-## GEO Analysis (Score: X/10)
-
-### E-E-A-T Assessment
-
-Cover: Author information, About page quality, contact info, trust signals, organization schema.
-
-### Content for AI Synthesis
-
-Cover: Factual density, claim clarity, source citation, comprehensiveness, entity clarity, originality.
-
-### Technical GEO
-
-Cover: Structured data depth, HTTPS, crawlability, brand entity links.
-
----
-
-## AEO Analysis (Score: X/10)
-
-### Featured Snippet Eligibility
-
-Cover: Direct answer paragraphs, definition patterns, list content, table content.
-
-### Structured Answer Formats
-
-Cover: FAQ schema, HowTo schema, question-phrased headings, Speakable schema.
-
-### Voice Search Readiness
-
-Cover: Conversational language, long-tail question coverage, local signals if applicable.
-
----
-
-## Priority Recommendations Matrix
-
-| Priority | Issue | Dimension | Effort | Impact |
-|---|---|---|---|---|
-| 🔴 Critical | [Issue] | SEO/GEO/AEO | Low/Med/High | High |
-| 🟠 High | ... | ... | ... | ... |
-| 🟡 Medium | ... | ... | ... | ... |
-| 🟢 Quick Win | ... | ... | Low | Med/High |
-
----
-
-## What's Working Well
-
-Genuine strengths — be specific, reference actual content found.
-
----
-
-## Glossary (include only if the client may be unfamiliar with terms)
-
-Brief definitions of SEO, GEO, and AEO for context.
-
----
-
-## Step 5: Deliver clearly and invite next steps
-
-After the report, close with:
-
-> "Would you like me to go deeper on any specific area? I can also audit additional pages (like your homepage, a blog post, or a product page), or compare this page against a competitor's URL."
+> "Would you like me to go deeper on any specific area? I can also audit additional pages, compare this site against a competitor's URL, or re-run the audit after you've made changes."
 
 ---
 
@@ -328,3 +365,5 @@ After the report, close with:
 **Calibrate tone to the findings.** If a site is genuinely in good shape, say so — don't manufacture problems. If it has serious issues, communicate urgency without being alarmist.
 
 **GEO and AEO are emerging disciplines.** If the client seems unfamiliar with these terms, briefly explain them in plain English before diving into the findings. A sentence or two is enough.
+
+**Make the report earn its download.** The DOCX/PDF should feel like something an agency charged for — not a printout of the chat. Use the full visual design, be specific with evidence, and make every table and section genuinely informative.
