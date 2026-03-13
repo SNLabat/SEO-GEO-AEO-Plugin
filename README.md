@@ -1,4 +1,4 @@
-# SEO / GEO / AEO Audit Plugin for Claude
+# SEO / GEO / AEO Audit — Plugin & Skill for Claude
 
 Automatically audits any website across three dimensions of modern search visibility:
 
@@ -21,34 +21,54 @@ Claude will ask whether you want a **Quick Audit** (top issues and scores) or a 
 
 ---
 
-## How to install (Claude Code)
+## Installation options
 
-**Option 1 — from a marketplace (once listed):**
+This tool is available in two formats — use whichever fits your setup.
+
+### Option A: Cowork Skill (`.skill` file)
+
+For use in **Claude's Cowork desktop app**. Install the skill file directly:
+
+1. Download `seo-geo-aeo.skill` from this repository
+2. Open the Claude desktop app
+3. Go to **Settings → Skills** and click **Install Skill**
+4. Select the downloaded `.skill` file
+
+The skill will then be available in all your Cowork sessions.
+
+---
+
+### Option B: Claude Code Plugin
+
+For use in **Claude Code** (the terminal-based CLI tool).
+
+**Option B1 — from a marketplace (once listed):**
 ```
 claude plugin install seo-geo-aeo
 ```
 
-**Option 2 — from this directory:**
+**Option B2 — from this directory:**
 ```
 claude --plugin-dir ./seo-geo-aeo-plugin
 ```
 
-**Option 3 — install to project scope (share with your team):**
+**Option B3 — install to project scope (share with your team):**
 ```
 claude plugin install seo-geo-aeo --scope project
 ```
 
 ---
 
-## Plugin structure
+## Repository structure
 
 ```
-seo-geo-aeo-plugin/
-├── .claude-plugin/
-│   └── plugin.json          ← Plugin manifest
+SEO-GEO-AEO-Plugin-main/
+├── seo-geo-aeo.skill           ← Standalone Cowork skill (install this for Cowork)
 ├── skills/
 │   └── seo-geo-aeo/
-│       └── SKILL.md         ← Audit instructions
+│       └── SKILL.md            ← Audit instructions (source of truth)
+├── .claude-plugin/
+│   └── plugin.json             ← Claude Code plugin manifest
 └── README.md
 ```
 
@@ -58,5 +78,6 @@ seo-geo-aeo-plugin/
 
 **1.0.0** — Initial release
 - Quick and Full audit modes
-- Multi-page site crawl (up to 7 pages)
+- Multi-page site crawl (up to 15 pages)
 - SEO, GEO, and AEO scoring with priority recommendations matrix
+- Available as both a Cowork `.skill` file and a Claude Code plugin
