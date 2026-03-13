@@ -188,9 +188,13 @@ Tell the user: "Generating your downloadable report now..."
 
 ### Setup
 
+**Do not run `npm install` as a separate step.** Check whether `docx` is already available first, and only install if missing. Do this in a single combined bash command so it counts as one tool call:
+
 ```bash
-npm install -g docx
+node -e "require('docx')" 2>/dev/null || npm install -g docx
 ```
+
+**Then immediately write and run the full report script in the next tool call — do not pause, do not add intermediate steps.** Write the complete JS to a file and execute it in one shot.
 
 ### Report design
 
@@ -217,25 +221,27 @@ Build the report in this order:
 
 #### 1. Cover page (separate section, no header/footer)
 
-Full-page navy background (`1B2A4A`). Center all content vertically using spacing.
+Full-page navy background (`1B2A4A`). Keep it clean and simple — everything fits on one page. Use `spaceBefore`/`spaceAfter` on paragraphs to vertically center the content block.
 
-- Top area: Site domain in white, 32pt bold
-- "SEO / GEO / AEO Audit Report" in light blue (`93C5FD`), 18pt
-- Audit type badge: "QUICK AUDIT" or "FULL AUDIT" in white, 12pt, with spacing
-- Large score display — three side-by-side score boxes (use a 3-column table, full width):
-  - Each cell: colored background based on score (green/amber/red), score number in white 36pt bold, label in white 10pt below
-- Audit date and "Claude Skill and Plugin by Alex Labat" in gray (`94A3B8`), 9pt, at the bottom
-- Page break after cover
+**Top spacer:** ~1800 DXA of space (navy paragraph) to push content toward the center.
 
-#### 2. Table of contents (Heading-based, hyperlinked)
+**Content (all centered):**
+1. Site domain in white, 36pt bold — the hero element
+2. "SEO / GEO / AEO Audit Report" in light blue (`93C5FD`), 18pt — subtitle
+3. Audit type: "QUICK AUDIT" or "FULL AUDIT" in white, 11pt, with 400 DXA space after
+4. Score table — a simple 3-column table, full width, no visible outer border:
+   - Each cell: colored background based on score (green `16A34A` for 8-10, amber `D97706` for 5-7, red `DC2626` for 1-4), with generous top/bottom cell margins
+   - Row 1: dimension label ("SEO", "GEO", "AEO") in white, 10pt bold, centered
+   - Row 2 (same cell, second paragraph): score number in white, 36pt bold, centered
+   - Row 3 (same cell, third paragraph): status word ("Strong", "On Track", "Needs Work") in white, 9pt italic, centered
 
-```javascript
-new TableOfContents("Table of Contents", { hyperlink: true, headingStyleRange: "1-3" })
-```
+**Bottom spacer:** ~1800 DXA of space, then attribution in gray (`94A3B8`), 9pt, centered:
+- Line 1: Audit date
+- Line 2: "Claude Skill and Plugin by Alex Labat"
 
-Page break after TOC.
+Page break after cover.
 
-#### 3. Executive summary
+#### 2. Executive summary
 
 Section heading: "Executive Summary" (Heading 1)
 
@@ -301,7 +307,7 @@ Brief definitions of SEO, GEO, and AEO for clients who may be unfamiliar.
 
 **Header:** Site domain left-aligned, "SEO / GEO / AEO Audit Report" right-aligned. Separated from content by a navy bottom border (`1B2A4A`, size 8).
 
-**Footer:** "Confidential — Claude Skill and Plugin by Alex Labat" left-aligned, page number right-aligned. Separated by a gray top border.
+**Footer:** "Claude Skill and Plugin by Alex Labat" left-aligned, page number right-aligned. Separated by a gray top border.
 
 ### Generate the DOCX
 
